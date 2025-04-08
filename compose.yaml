@@ -16,6 +16,8 @@ services:
     ports:
       - '8080:8080'
     environment:
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx512m
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/academy
       - SPRING_DATASOURCE_USERNAME=academy
       - SPRING_DATASOURCE_PASSWORD=n8rP@Zq#4LxV!gTw1KdB
