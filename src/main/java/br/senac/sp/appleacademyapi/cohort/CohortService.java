@@ -1,8 +1,10 @@
 package br.senac.sp.appleacademyapi.cohort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -33,9 +35,10 @@ public class CohortService {
         repository.delete(findById(id));
     }
 
-    public Cohort update(UUID id, Cohort cohort) {
-        findById(id);
-        cohort.setId(id);
+    public Cohort update(UUID id, Cohort cohortToUpdate) {
+        var cohort = findById(id);
+        BeanUtils.copyProperties(cohortToUpdate, cohort, "id", "createdAt");
+        cohort.setUpdatedAt(LocalDateTime.now());
         return repository.save(cohort);
     }
 

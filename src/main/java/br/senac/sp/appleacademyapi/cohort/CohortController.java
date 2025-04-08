@@ -45,6 +45,7 @@ public class CohortController {
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id){
+        //TODO check if there are students in the cohort
         service.delete(id);
     }
 
