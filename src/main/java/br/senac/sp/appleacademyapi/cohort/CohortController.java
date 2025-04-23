@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("cohort")
+@RequestMapping({"cohort", "cohort/"})
 public class CohortController {
     
     private final CohortService service;
