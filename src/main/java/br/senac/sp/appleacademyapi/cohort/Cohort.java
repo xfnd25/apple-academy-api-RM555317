@@ -19,7 +19,7 @@ public class Cohort {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotBlank(message = "Name is required")
+    @NotBlank(message = "field required")
     private String name;
 
     private LocalDate startDate;
