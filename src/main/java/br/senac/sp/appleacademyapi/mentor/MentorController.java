@@ -1,0 +1,58 @@
+package br.senac.sp.appleacademyapi.mentor;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.senac.sp.appleacademyapi.cohort.Cohort;
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/mentors")
+public class MentorController {
+
+    private final MentorService service;
+
+    public MentorController(MentorService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Mentor> getAll(){
+        return service.getAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mentor create(@RequestBody @Valid Mentor mentor){
+        return service.create(mentor);
+    }
+
+    @GetMapping("{id}")
+    public Mentor getById(@PathVariable UUID id){
+        return service.getById(id);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable UUID id){
+        //TODO check if there are related records
+        service.delete(id);
+    }
+
+    @PutMapping("{id}")
+    public Mentor update(@PathVariable UUID id, @RequestBody @Valid Mentor mentor){
+        return service.update(id, mentor);
+    }
+    
+}
