@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.senac.sp.appleacademyapi.cohort.Cohort;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/mentors")
+@RequestMapping({"/mentor", "/mentor/"})
 public class MentorController {
 
     private final MentorService service;
