@@ -33,8 +33,8 @@ public class MentorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mentor create(@RequestBody @Valid Mentor mentor){
-        return service.create(mentor);
+    public MentorResponse create(@RequestBody @Valid MentorRequest mentorRequest){
+        return service.create(mentorRequest);
     }
 
     @GetMapping("{id}")

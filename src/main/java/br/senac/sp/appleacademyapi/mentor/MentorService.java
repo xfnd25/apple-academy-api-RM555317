@@ -9,21 +9,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.senac.sp.appleacademyapi.security.AuthUserRepository;
+import jakarta.transaction.Transactional;
+
 @Service
 public class MentorService {
 
     private final MentorRepository repository;
+    private final AuthUserRepository authUserRepository;
 
-    public MentorService(MentorRepository mentorRepository) {
+    public MentorService(MentorRepository mentorRepository, AuthUserRepository authUserRepository) {
         this.repository = mentorRepository;
+        this.authUserRepository = authUserRepository;
     }
 
     public List<Mentor> getAll() {
         return repository.findAll();    
     }
 
-    public Mentor create(Mentor mentor) {
-        return repository.save(mentor);
+    public MentorResponse create(MentorRequest mentorRequest) {
+        var mentor = repository.save(mentorRequest.toMentor());
+        var authUser = mentorRequest.toAuthUser(mentor.getId());
+        authUserRepository.save(authUser);
+        return MentorResponse.from(mentor, authUser);
     }
 
     public Mentor getById(UUID id) {
