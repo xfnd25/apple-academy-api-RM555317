@@ -36,6 +36,9 @@ public class Mentor {
     private MentorExpertise expertise;
 
     @Builder.Default()
+    private Boolean active = true;
+
+    @Builder.Default()
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
 

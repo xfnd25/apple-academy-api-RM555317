@@ -49,6 +49,12 @@ public class MentorService {
         return repository.save(mentor);
     }
 
+    public void toggleActive(UUID id) {
+        var mentor = findById(id);
+        mentor.setActive(!mentor.getActive());
+        repository.save(mentor);
+    }
+
     private Mentor findById(UUID id) {
         return repository.findById(id)
             .orElseThrow(() -> new ResponseStatusException( HttpStatus.NOT_FOUND ,"Mentor with id " +  id + " not found"));
