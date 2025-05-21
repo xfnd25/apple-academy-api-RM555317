@@ -6,21 +6,23 @@ import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.senac.sp.appleacademyapi.security.AuthUserRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class MentorService {
 
+    private final PasswordEncoder passwordEncoder;
     private final MentorRepository repository;
     private final AuthUserRepository authUserRepository;
 
-    public MentorService(MentorRepository mentorRepository, AuthUserRepository authUserRepository) {
+    public MentorService(MentorRepository mentorRepository, AuthUserRepository authUserRepository, PasswordEncoder passwordEncoder) {
         this.repository = mentorRepository;
         this.authUserRepository = authUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Mentor> getAll() {
@@ -30,6 +32,7 @@ public class MentorService {
     public MentorResponse create(MentorRequest mentorRequest) {
         var mentor = repository.save(mentorRequest.toMentor());
         var authUser = mentorRequest.toAuthUser(mentor.getId());
+        authUser.setPassword(passwordEncoder.encode(authUser.getPassword()));
         authUserRepository.save(authUser);
         return MentorResponse.from(mentor, authUser);
     }
