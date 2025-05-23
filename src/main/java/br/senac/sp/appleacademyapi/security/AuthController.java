@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     record LoginRequest(String email, String password) {}
-    record LoginResponse(String token, String name, String avatarPath) {}
+    record LoginResponse(String token, String name, String avatarPath, String email, String id) {}
 
     private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;;
@@ -27,7 +27,13 @@ public class AuthController {
         AuthUser authUser = (AuthUser) authenticationManager.authenticate(authentication).getPrincipal();
 
         String token = tokenService.generateToken(authUser);
-        return new LoginResponse(token, authUser.getName(), authUser.getAvatarPath());
+        return new LoginResponse(
+            token, 
+            authUser.getName(), 
+            authUser.getAvatarPath(),
+            authUser.getEmail(),
+            authUser.getId().toString()
+            );
     }
     
 }
