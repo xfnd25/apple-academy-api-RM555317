@@ -8,7 +8,7 @@ public record MentorResponse(
     UUID id,
     String name,
     String avatarPath,
-    MentorExpertise expertise,
+    Expertise expertise,
     String email
 ) {
 

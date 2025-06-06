@@ -14,7 +14,7 @@ public record MentorRequest(
     String name,
     String avatarPath,
     @NotNull
-    MentorExpertise expertise,
+    Expertise expertise,
     @Email
     String email,
     @Size(min = 6, message = "Password must be at least 6 characters long")

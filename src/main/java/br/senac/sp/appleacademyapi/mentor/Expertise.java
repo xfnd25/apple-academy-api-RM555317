@@ -1,6 +1,6 @@
 package br.senac.sp.appleacademyapi.mentor;
 
-public enum MentorExpertise {
+public enum Expertise {
     DEVELOPER,
     DESIGNER,
     BUSINESS,
