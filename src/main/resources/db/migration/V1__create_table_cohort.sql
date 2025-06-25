@@ -1,5 +1,5 @@
 CREATE TABLE cohort (
-    id UUID PRIMARY KEY,
+    id CHAR(36) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     start_date DATE,
     end_date DATE,
