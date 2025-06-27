@@ -1,5 +1,5 @@
 CREATE TABLE mentor (
-    id CHAR(36) PRIMARY KEY,
+    id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     avatar_path VARCHAR(200),
     expertise VARCHAR(200),

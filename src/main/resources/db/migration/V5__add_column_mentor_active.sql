@@ -1,2 +1,2 @@
 ALTER TABLE mentor
-ADD COLUMN active TINYINT(1);
+ADD COLUMN active BOOLEAN;
