@@ -19,6 +19,14 @@ services:
         fromDatabase:
           name: apple-academy-db
           property: connectionString
+      - key: APPLE_API_DB_USERNAME
+        fromDatabase:
+          name: apple-academy-db
+          property: user
+      - key: APPLE_API_DB_PASSWORD
+        fromDatabase:
+          name: apple-academy-db
+          property: password
       - key: APPLE_API_PROFILE
         value: prod
       - key: SERVER_PORT
