@@ -1,15 +1,14 @@
-services:
-  - type: db
-    name: apple-academy-db
+databases:
+  - name: apple-academy-db
     databaseName: apple_academy_db
     user: apple_academy_user
     plan: free
     region: oregon
-    postgresMajorVersion: 14
 
+services:
   - type: web
     name: apple-academy-api
-    env: java
+    runtime: java
     plan: free
     region: oregon
     buildCommand: "./mvnw clean install -DskipTests"
@@ -20,14 +19,6 @@ services:
         fromDatabase:
           name: apple-academy-db
           property: connectionString
-      - key: APPLE_API_DB_USERNAME
-        fromDatabase:
-          name: apple-academy-db
-          property: user
-      - key: APPLE_API_DB_PASSWORD
-        fromDatabase:
-          name: apple-academy-db
-          property: password
       - key: APPLE_API_PROFILE
         value: prod
       - key: SERVER_PORT
