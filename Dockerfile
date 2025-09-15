@@ -30,4 +30,4 @@ COPY --from=build /app/target/apple-academy-api-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8083
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["/bin/sh", "-c", "java -Dspring.datasource.jdbc-url=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME} -Dspring.datasource.username=${APPLE_API_DB_USERNAME} -Dspring.datasource.password=${APPLE_API_DB_PASSWORD} -Djwt.secret=${APPLE_API_JWT_SECRET} -jar app.jar"]
