@@ -13,10 +13,18 @@ services:
     region: oregon
     healthCheckPath: /actuator/health
     envVars:
-      - key: APPLE_API_DB_URL
+      - key: DB_HOST
         fromDatabase:
           name: apple-academy-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: apple-academy-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: apple-academy-db
+          property: database
       - key: APPLE_API_DB_USERNAME
         fromDatabase:
           name: apple-academy-db
