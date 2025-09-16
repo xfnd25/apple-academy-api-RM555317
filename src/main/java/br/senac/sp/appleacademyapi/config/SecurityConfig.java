@@ -27,7 +27,7 @@ public class SecurityConfig {
     private final AuthFilter authFilter;
     private final AuthEntryPoint authEntryPoint;
 
-    public SecurityConfig(AuthFilter authFilter, AuthEntryPoint authEntryPoint){
+    public SecurityConfig(AuthFilter authFilter, AuthEntryPoint authEntryPoint) {
         this.authFilter = authFilter;
         this.authEntryPoint = authEntryPoint;
     }
@@ -37,8 +37,11 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Libera login e endpoints públicos
                         .requestMatchers(HttpMethod.POST, "/login/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/mentor", "/mentors").permitAll()
+                        // Libera health check do Render
+                        .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -49,7 +52,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -59,9 +62,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    CorsConfigurationSource corsConfig(){
+    CorsConfigurationSource corsConfig() {
         var config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000/"));
+        config.setAllowedOrigins(List.of("http://localhost:3000")); // sem barra final
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE"));
         config.setAllowedHeaders(List.of("*"));
 
@@ -69,5 +72,4 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
-    
 }
