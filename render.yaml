@@ -35,7 +35,5 @@ services:
           property: password
       - key: APPLE_API_PROFILE
         value: prod
-      - key: SERVER_PORT
-        value: 8083
       - key: APPLE_API_JWT_SECRET
         generateValue: true
