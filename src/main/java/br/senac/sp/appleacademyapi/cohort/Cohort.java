@@ -25,6 +25,7 @@ public class Cohort {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    @Enumerated(EnumType.STRING)
     private CohortStatus status;
 
     private LocalDateTime createdAt = LocalDateTime.now();
